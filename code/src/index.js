@@ -13,7 +13,11 @@ class Clock extends React.Component {
       1000
     )
   }
-
+  tick = () => {
+    this.setState({
+      date: new Date()
+    })
+  }
   componentWillUnmount = () => {
     clearInterval(this.timerID)
   }
@@ -23,14 +27,16 @@ class Clock extends React.Component {
       1000
     )
   }
-  tick() {
-    this.setState({
-      date: new Date()
-    })
+  clockClassName = () => {
+    if (this.state.date.getMinutes() % 2 === 0) {
+      return "clock even"
+    } else {
+      return "clock odd"
+    }
   }
   render() {
     return (
-      <div>
+      <div className={this.clockClassName()}>
         <h1>Hello, world!</h1>
         <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
         <button onClick={this.componentWillUnmount}>Stop clock now
